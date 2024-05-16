@@ -113,6 +113,12 @@
   - Flutter
     - [介绍](flutter/index.md "介绍")
     - [base](flutter/base.md "基础知识")
+  - Donut
+    - [介绍](donut/index.md "介绍")
+    - [base](donut/base.md "基础知识")
+  - Uniapp
+    - [介绍](uniapp/index.md "介绍")
+    - [base](uniapp/base.md "基础知识")
 
 - Angular
 
@@ -216,6 +222,7 @@
 - Phthon
 
   - [基础](python/index.md "phthon")
+  - [环境](python/环境.md "环境")
   - [高级](python/high.md "phthon")
 
 - Java
