@@ -143,6 +143,7 @@
   - [nest](node/nest/index.md "nest")
   - [egg](node/koa/index.md "egg")
   - [think](node/think/index.md "think")
+  - [next](node/next/index.md "next")
   - [nuxt](node/nuxt/index.md "nuxt")
   - [nvm](node/nvm/index.md "nvm")
   - [npm](node/npm/index.md "npm")

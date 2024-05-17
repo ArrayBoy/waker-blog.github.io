@@ -13,11 +13,53 @@
       rel="stylesheet"
       href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css"
     />
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/docsify-changelog-plugin@latest/dist/style.css"
+    />
+    <link
+      rel="stylesheet"
+      href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+    />
     <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/buble.css" /> -->
     <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/dark.css" /> -->
     <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/pure.css" /> -->
+    <style>
+      :root {
+        --docsifytabs-border-color: #ededed;
+        --docsifytabs-tab-highlight-color: var(--theme-color, #42b983);
+      }
+    </style>
+    <style>
+      .back-to-top {
+        position: fixed;
+        bottom: 50%;
+        right: 80px;
+        background-color: #f1f1f1;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        /* align-items: center; */
+        line-height: 36px;
+        justify-content: center;
+        border-radius: 10px;
+        font-size: 24px;
+        color: var(--theme-color, #42b983);
+        cursor: pointer;
+        box-sizing: border-box;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.5s, visibility 0.5s;
+        z-index: 999;
+      }
+      .back-to-top:hover {
+        background-color: #e2e2e2;
+      }
+    </style>
   </head>
   <body>
+    <nav></nav>
+    <div class="back-to-top">↑</div>
     <div id="app"></div>
     <script>
       window.$docsify = {
@@ -25,7 +67,8 @@
         // name: 'blog',
         autoHeader: true,
         loadSidebar: true,
-        loadNavbar: true, //顶部导航
+        loadNavbar: false, //顶部导航
+        changelog: "CHANGELOG.md", // path of your changelog, it can be remote as well
         subMaxLevel: 2, //侧边栏显示最大层级
         repo: "https://github.com/docsifyjs/docsify/", //右上角logo
         hideSidebar: false, //隐藏侧边栏
@@ -41,9 +84,57 @@
         },
         search: {
           // default默认搜索
-          placeholder: "搜索",
-          noData: "找不到结果!",
+          placeholder: {
+            "/zh-cn/": "搜索",
+            "/": "Search",
+          },
+          noData: {
+            "/zh-cn/": "找不到结果",
+            "/": "No Results",
+          },
           depth: 3,
+          hideOtherSidebarContent: true,
+        },
+        copyCode: {
+          buttonText: {
+            "/": "copy",
+          },
+          successText: {
+            "/": "Copied",
+          },
+        },
+        tabs: {
+          persist: true, // default
+          sync: true, // default
+          theme: "classic", // default
+          tabComments: true, // default
+          tabHeadings: true, // default
+        },
+        "flexible-alerts": {
+          note: {
+            label: "提示",
+          },
+          tip: {
+            label: "成功",
+          },
+          warning: {
+            label: "警告",
+          },
+          attention: {
+            label: "禁止",
+          },
+        },
+        footer: {
+          copy: "<span>Acme &copy; 2024</span>",
+          auth: "by Waker",
+          pre: "<hr/>",
+          style: "text-align: right;",
+          class: "className",
+        },
+        timeUpdater: {
+          text: ">最后更新时间: {docsify-updated}",
+          formatUpdated: "{YYYY}/{MM}/{DD} {HH}:{mm}:{ss}",
+          whereToPlace: "top", // "top" or "bottom", default to "bottom"
         },
       };
     </script>
@@ -70,5 +161,42 @@
     <script src="//unpkg.com/prismjs/components/prism-sql.js"></script>
     <!-- emoji -->
     <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+    <!-- copy -->
+    <script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
+    <!-- tabs -->
+    <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
+
+    <!-- Latest -->
+    <script src="https://unpkg.com/docsify-plugin-flexible-alerts"></script>
+    <!-- footer -->
+    <script src="//unpkg.com/docsify-footer-enh/dist/docsify-footer-enh.min.js"></script>
+    <!-- changelog -->
+    <script src="https://cdn.jsdelivr.net/npm/docsify-changelog-plugin@latest/dist/index.js"></script>
+    <!-- updated date -->
+    <script src="https://cdn.jsdelivr.net/npm/docsify-updated/src/time-updater.min.js"></script>
+    <!-- to top -->
+    <script>
+      // 当页面滚动到一定距离时显示按钮
+      window.onscroll = function () {
+        if (
+          document.body.scrollTop > 20 ||
+          document.documentElement.scrollTop > 20
+        ) {
+          document.querySelector(".back-to-top").style.visibility = "visible";
+          document.querySelector(".back-to-top").style.opacity = "1";
+        } else {
+          document.querySelector(".back-to-top").style.visibility = "hidden";
+          document.querySelector(".back-to-top").style.opacity = "0";
+        }
+      };
+
+      // 点击按钮返回页面顶部
+      document
+        .querySelector(".back-to-top")
+        .addEventListener("click", function () {
+          document.body.scrollTop = 0; // 对于Safari
+          document.documentElement.scrollTop = 0; // 对于Chrome, Firefox, IE和Opera
+        });
+    </script>
   </body>
 </html>
